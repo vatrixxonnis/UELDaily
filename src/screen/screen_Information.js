@@ -1,14 +1,13 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Button, TouchableOpacity, Image} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+
 
 export default function Information() {
-  <View>
-    <Text>Bye</Text>
-    <Text>Bye</Text>
-    <Text>Bye</Text>
-    <Text>Bye</Text>
-    <Text>Bye</Text>
-    <Text>Bye</Text>
-    <Text>Bye</Text>
-    <Text>Bye</Text>
-  </View>;
+  
+  <ScrollView>
+    <View>
+              <Text>Thời khóa biểu</Text>
+    </View>
+    
+  </ScrollView>;
 }

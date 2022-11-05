@@ -1,6 +1,6 @@
-import {useSelector, useDispatch} from 'react-redux';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {setUser, setloggedIn} from '../../redux/actions';
+import { useSelector, useDispatch } from 'react-redux';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { setUser, setLoggedIn, setUID } from '../../redux_toolkit/userSlice';
 import {
   Image,
   View,
@@ -10,9 +10,11 @@ import {
   ScrollView,
 } from 'react-native';
 
-export default function HomeDisplay({navigation}) {
+export default function HomeDisplay({ navigation }) {
   const dispatch = useDispatch();
-  const {user, loggedIn} = useSelector(state => state.userReducer);
+  const user = useSelector((state) => state.user.user);
+  const uid = useSelector((state) => state.user.UID);
+  const loggedIn = useSelector((state) => state.user.loggedIn);
   const signOut = async () => {
     try {
       await GoogleSignin.revokeAccess();
@@ -20,9 +22,9 @@ export default function HomeDisplay({navigation}) {
       auth()
         .signOut()
         .then(() => {
-          dispatch(setloggedIn(false));
+          dispatch(setLoggedIn(false));
         });
-      // setuserInfo([]);
+      dispatch(setUser([]));
     } catch (error) {
       console.error(error);
     }
@@ -36,7 +38,7 @@ export default function HomeDisplay({navigation}) {
             {user ? (
               <Text style={styles.studentName}>{user.displayName}</Text>
             ) : null}
-            <Text>K204060305</Text>
+            <Text>{database_app[2].key}</Text>
           </View>
 
           <TouchableOpacity style={styles.btnLanguage}>
@@ -44,11 +46,13 @@ export default function HomeDisplay({navigation}) {
           </TouchableOpacity>
         </View>
       )}
+      <TouchableOpacity onPress={signOut}>
+        <Image
+          style={styles.effect}
+          source={require('../../assets/effectRound.png')}
+        />
+      </TouchableOpacity>
 
-      <Image
-        style={styles.effect}
-        source={require('../../assets/effectRound.png')}
-      />
 
       <View style={styles.tienich}>
         <View style={styles.tienichHeader}>

@@ -12,7 +12,6 @@ import {
 export default function Schedule() {
     return(
         <>
-        <Text>Schedule</Text>
         </>
     )
 }
