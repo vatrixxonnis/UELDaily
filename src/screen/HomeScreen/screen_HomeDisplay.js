@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { setUser, setLoggedIn, setUID } from '../../redux_toolkit/userSlice';
+import { setUser, setLoggedIn, setUID, setCurrentUser } from '../../redux_toolkit/userSlice';
 import {
   Image,
   View,
@@ -12,9 +12,6 @@ import {
 
 export default function HomeDisplay({ navigation }) {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  const uid = useSelector((state) => state.user.UID);
-  const loggedIn = useSelector((state) => state.user.loggedIn);
   const signOut = async () => {
     try {
       await GoogleSignin.revokeAccess();
@@ -33,10 +30,10 @@ export default function HomeDisplay({ navigation }) {
     <ScrollView style={styles.body}>
       {loggedIn && (
         <View style={styles.studentwelcome}>
-          <Image source={require('../../assets/user.png')} />
+          <Image style={{width:50, height:50}} source={{uri: user.photoURL}} />
           <View>
             {user ? (
-              <Text style={styles.studentName}>{user.displayName}</Text>
+              <Text style={styles.studentName}>{currentUser.data.lastName + ` ${currentUser.data.firstName}`}</Text>
             ) : null}
             <Text>{database_app[2].key}</Text>
           </View>

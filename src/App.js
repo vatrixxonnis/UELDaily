@@ -16,7 +16,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { getAccount } from './redux_toolkit/databaseSlice';
+import { getDatabaseAccount,getStudent } from './redux_toolkit/databaseSlice';
 // Firebase
 import { firebase } from '@react-native-firebase/database';
 
@@ -140,13 +140,32 @@ const AppWrapper = () => {
           snapshot.forEach((childSnapshot) => {
             let childKey = childSnapshot.key;
             let childData = childSnapshot.val();
-            dispatch(getAccount({ "key": childKey, "data": childData }));
+            dispatch(getDatabaseAccount({ "key": childKey, "data": childData }));
+          })
+        }, (error) => {
+          console.error(error);
+        });
+
+        firebase
+        .app()
+        .database('https://ueldaily-hubing-default-rtdb.asia-southeast1.firebasedatabase.app/')
+        .ref('/students')
+        .once('value', (snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+            let childKey = childSnapshot.key;
+            let childData = childSnapshot.val();
+            dispatch(getStudent({ "key": childKey, "data": childData }));
           })
         }, (error) => {
           console.error(error);
         });
   },[])
   global.database_app = useSelector(state => state.database.db_app);
+  global.database_uel = useSelector(state => state.database.db_uel);
+  global.user = useSelector((state) => state.user.user);
+  global.uid = useSelector((state) => state.user.UID);
+  global.loggedIn = useSelector((state) => state.user.loggedIn);
+  global.currentUser = useSelector((state) => state.user.currentUser)
   return (
     <App/>
   );

@@ -15,36 +15,42 @@ import {
 } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import react, { useState, useEffect } from 'react';
-import { useSelector, useDispatch , shallowEqual } from 'react-redux';
-import { setUser, setLoggedIn, setUID } from '../redux_toolkit/userSlice';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { setUser, setLoggedIn, setUID, setCurrentUser } from '../redux_toolkit/userSlice';
 
 export default function Login({ navigation }) {
-  const user = useSelector((state) => state.user.user);
-  const uid = useSelector((state) => state.user.UID);
-  const loggedIn = useSelector((state) => state.user.loggedIn);
+
   // const database_app = useSelector((state) => state.database.db_app);
   const dispatch = useDispatch();
 
   function onAuthStateChanged(user) {
     dispatch(setUser(user));
-    // if(user) dispatch(setLoggedIn(true));
     if (user) {
-      
-      let i = 0;
-      for (let element of database_app) {
-        
-        if (element.data.email == user.email) {
-          i = 1;
-        }
-      }
-      if (i == 0) {
-        alert("Tài khoản không tồn tại");
+      if (user.email.search(/@st.uel.edu.vn/i) == -1) {
+        alert("Vui lòng sử mail email trường cấp");
         signOut();
       }
       else {
-        dispatch(setLoggedIn(true));
-      }
+        let i = 0;
+        for (let element of database_app) {
 
+          if (element.data.email == user.email) {
+            i = 1;
+          }
+        }
+        if (i == 0) {
+          alert("Tài khoản không tồn tại");
+          signOut();
+        }
+        else {
+          for(let element of database_uel) {
+            if(element.data.email == user.email) {
+              dispatch(setCurrentUser(element));
+            }
+          }
+          dispatch(setLoggedIn(true));
+        }
+      }
     }
   };
 

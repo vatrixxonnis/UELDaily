@@ -6,6 +6,7 @@ export const userSlice = createSlice({
         user: [],
         loggedIn: false,
         uid: "",
+        currentUser:{},
     },
     reducers: {
         setUser: (state, action) => {
@@ -18,10 +19,13 @@ export const userSlice = createSlice({
         setUID: (state, action) => {
             state.uid = action.payload
         },
+        setCurrentUser:(state,action) => {
+            state.currentUser = action.payload
+        }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { setUser, setLoggedIn, setUID} = userSlice.actions;
+export const { setUser, setLoggedIn, setUID, setCurrentUser} = userSlice.actions;
 
 export default userSlice.reducer;

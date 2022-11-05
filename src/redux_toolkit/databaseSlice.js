@@ -12,16 +12,19 @@ export const databaseSlice = createSlice({
     // doesn't actually mutate the state because it uses the Immer library,
     // which detects changes to a "draft state" and produces a brand new
     // immutable state based off those changes
-    getAccount: (state, action) => {
+    getDatabaseAccount: (state, action) => {
       
       //  const account = {key: action.payload.key, data: action.payload.data}
       // state.db_app.push(account);
       state.db_app.push(action.payload);
     },
+    getStudent:(state, action) => {
+      state.db_uel.push(action.payload)
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { getAccount } = databaseSlice.actions;
+export const { getDatabaseAccount, getStudent } = databaseSlice.actions;
 
 export default databaseSlice.reducer;

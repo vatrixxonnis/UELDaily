@@ -9,7 +9,6 @@ import {
     ScrollView,
     Table
 } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
 import { useSelector, useDispatch } from 'react-redux';
 import LogOutButton from '../../components/Button_LogOut';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
