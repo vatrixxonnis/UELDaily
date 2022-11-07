@@ -30,12 +30,12 @@ export default function HomeDisplay({ navigation }) {
     <ScrollView style={styles.body}>
       {loggedIn && (
         <View style={styles.studentwelcome}>
-          <Image style={{width:50, height:50}} source={{uri: user.photoURL}} />
+          <Image style={{width:40, height:40, borderRadius: 100 ,marginRight:10}} source={{uri: user.photoURL}} />
           <View>
             {user ? (
               <Text style={styles.studentName}>{currentUser.data.lastName + ` ${currentUser.data.firstName}`}</Text>
             ) : null}
-            <Text>{database_app[2].key}</Text>
+            <Text>{currentUser.key}</Text>
           </View>
 
           <TouchableOpacity style={styles.btnLanguage}>
@@ -43,7 +43,7 @@ export default function HomeDisplay({ navigation }) {
           </TouchableOpacity>
         </View>
       )}
-      <TouchableOpacity onPress={signOut}>
+      <TouchableOpacity>
         <Image
           style={styles.effect}
           source={require('../../assets/effectRound.png')}
@@ -134,6 +134,7 @@ export default function HomeDisplay({ navigation }) {
             </View>
           </View>
         </View>
+
         <View style={styles.row}>
           <Image
             style={styles.hoatdongImage}
@@ -151,6 +152,7 @@ export default function HomeDisplay({ navigation }) {
             </View>
           </View>
         </View>
+
         <View style={styles.row}>
           <Image
             style={styles.hoatdongImage}
@@ -168,6 +170,7 @@ export default function HomeDisplay({ navigation }) {
             </View>
           </View>
         </View>
+
         <View style={styles.row}>
           <Image
             style={styles.hoatdongImage}
@@ -185,6 +188,7 @@ export default function HomeDisplay({ navigation }) {
             </View>
           </View>
         </View>
+
       </View>
     </ScrollView>
   );
@@ -313,6 +317,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   tienichText: {
+    // color: 'black',
     fontSize: 20,
     fontWeight: 'bold',
     color: '#252525',
